@@ -1,26 +1,46 @@
-﻿/* Задача 47. Задайте двумерный массив размером m×n,
-заполненный случайными вещественными числами.
-m = 3, n = 4.
-0,5 7 -2 -0,2
-1 -3,3 8 -9,9
-8 7,8 -7,1 9 */
+﻿/* Задача 50. Напишите программу, которая на вход принимает позиции
+элемента в двумерном массиве, и возвращает значение этого
+элемента или же указание, что такого элемента нет.
+Например, задан массив:
+1 4 7 2
+5 9 2 3
+8 4 2 4
+17 -> такого числа в массиве нет */
 
-double[,] array = FillArray(3, 4); // двумерный массив из функции FillArray()
+int[,] array = FillArray(3, 4); // двумерный массив из функции FillArray()
+Print();
+ReadLine();
 
-
-double[,] FillArray(int str, int col)       // функция на присвоение каждому
-{                                           // эллементу массива вещественного числа
-    double[,] arr = new double[3, 4];
+int[,] FillArray(int str, int col)       // функция на присвоение каждому
+{                                           // эллементу массива числа
+    int[,] arr = new int[3, 4];
     for (int i = 0; i < str; i++)
     {
         for (int j = 0; j < col; j++)
         {
-            arr[i, j] = Convert.ToDouble(new Random().Next(-99, 100) / 10.0);
+            arr[i, j] = new Random().Next(10);
         }
     }
     return arr;
 }
 
-Console.WriteLine($"{array[0, 0]}, {array[0, 1]}, {array[0, 2]}, {array[0, 3]}, ");
-Console.WriteLine($"{array[1, 0]}, {array[1, 1]}, {array[1, 2]}, {array[1, 3]}, ");
-Console.WriteLine($"{array[2, 0]}, {array[2, 1]}, {array[2, 2]}, {array[2, 3]}, ");
+void Print()                             // функция вывода массива
+{
+    Console.WriteLine($"{array[0, 0]}, {array[0, 1]}, {array[0, 2]}, {array[0, 3]}, ");
+    Console.WriteLine($"{array[1, 0]}, {array[1, 1]}, {array[1, 2]}, {array[1, 3]}, ");
+    Console.WriteLine($"{array[2, 0]}, {array[2, 1]}, {array[2, 2]}, {array[2, 3]}, ");
+}
+
+void ReadLine()                         // функция ввода числа и проверки позиции
+{
+    int number;
+    Console.WriteLine("Введите позицию элемента");
+    int.TryParse(Console.ReadLine(), out number);
+    int number1 = (number / 10) - 1;
+    int number2 = (number % 10) - 1;
+    if (number1 < 4 && number1 >= 0)
+        if (number2 < 3 && number2 >= 0)
+            Console.Write($" -> {number1}, {number2}");
+        else Console.Write(" -> такого числа в массиве нет");
+    else Console.Write(" -> такого числа в массиве нет");
+}
